@@ -9,21 +9,23 @@ export default function App() {
   // const [nameTest, setNameTest] =useState();
 
   function handlePrevious() {
-    if (step > 1) setStep(step - 1);
-    setStep(step - 1);
+    if (step > 1) setStep((s) => s - 1);
+    // setStep(step - 1);
   };
 
   function handleNext() {
-    if (step < 3) setStep(step + 1);
-    setStep(step + 1);
-
-    //setNameTest({name: "Fred"});
+    if (step < 3) { 
+      setStep((s) => s + 1);
+    // setStep(step + 1);
+    }
+    // setNameTest({name: "Fred"});
   };
 
+  /* Two diffrent components will have different memory alocation even if the code logic is the same. Ex: if you render the smae component twice and make changes on one of them, the state of the one you changed won't affect the state of the other, even when the page is refreshed. */
 
   return (
     <>
-      <button className="close " onClick={() => setIsOpen(!isOpen)}>&times;</button>
+      <button className="close " onClick={() => setIsOpen((is) => !is)}>&times;</button>
 
       { isOpen && (
         <div className="steps">
