@@ -22,10 +22,16 @@ function Logo() {
 
 function Form() {
 
-  function handleSubmit() {}
-
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+  
   return(
     <form className="add-form" onSubmit={handleSubmit}>
+      {/* Two different ways to prevent  page from deafult reload on submittion. 
+        1) - By handling event on a funtion as is shown above or inline
+        2) - Inline - Ex: <form className="add-form" onSubmit={(e)=> handleSubmit(e)}
+      */}
       <h3>What do you need for your trip</h3>
       <select>
         {Array.from({ lenght: 20 }, (_, i) => i + 1).map((num)=> <option value={num} key={num}>{num}</option>)}
