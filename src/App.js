@@ -28,11 +28,18 @@ function Form() {
 
   const [itemName, setItemName ] = useState("");
   const [amount, setAmount] = useState("");
+  const [items, setItems] = useState([]);
 
+  function handleAddItems(item) {
+    setItems((items) => [...items, item]);
+  }
+ 
   function handleSubmit(e) {
     e.preventDefault();
 
     if (!itemName) return;
+
+    const newItem = { itemName, amount, packed: false, id: Date.now()};
   }
   
   return(
