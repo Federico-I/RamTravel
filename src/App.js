@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const initialItems = [
+/*const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: true },
   { id: 2, description: "Socks", quantity: 12, packed: false },
-];
+];*/
 
 export default function App() {
 
@@ -11,14 +11,18 @@ export default function App() {
 
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
-  }
+  };
+
+  function handleDeleteItems(id) {
+    setItems((items) => items.filter(item=> item.id !== id));
+  };
 
   return(
     <div className="app">
       <Logo />
       <Form addItems={handleAddItems}/>
-      <PackingList passItems={items}/>
-      <Stats />
+      <PackingList passItems={items} deleteItem={handleDeleteItems}/>
+      <Stats itemsAmount={items}/>
     </div>
   )
 };
@@ -45,7 +49,7 @@ function Form({ addItems }) {
 
     setItemName("");
     setAmount(1);
-  }
+  };
   
   return(
     <form className="add-form" onSubmit={handleSubmit}>
@@ -63,35 +67,33 @@ function Form({ addItems }) {
   )
 };
 
-function PackingList({ passItems }) {
+function PackingList({ passItems, deleteItem }) {
   return(
     <div className="list">
       <ul>
         {passItems.map((item)=> (
-          <Item item={item} key={item.id}/>
+          <Item item={item} key={item.id} deleteItem={deleteItem}/>
         ))}
       </ul>
     </div>
   )
 };
 
-function Item({ item }) {
+function Item({ item, deleteItem }) {
   return (
     <li>
       <span style={item.packed ? {textDecoration:"line-through"}: {}}>
         {""}{item.quantity}{item.description}
       </span>
-      <button>&times;</button>
+      <button onClick={ () => deleteItem(item.id) }>&times;</button>
     </li>
   )
-}
+};
 
-
-
-function Stats() {
+function Stats({ itemsAmount }) {
   return(
     <footer>
-      <em>You have X items on your list, and you already packed x (x%)</em>
+      <em>You have {itemsAmount.lenght()} items on your list, and you already packed x (x%)</em>
     </footer>
   )
 };
