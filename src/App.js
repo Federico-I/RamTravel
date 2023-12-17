@@ -17,6 +17,11 @@ export default function App() {
     setItems((items) => items.filter(item=> item.id !== id));
   };
 
+  function handleCheckedItem(id) {
+    setItems((items) => items.map((item) => item.id === id ? { ...item, packed: !item.packed } : item)
+    );
+  };
+
   return(
     <div className="app">
       <Logo />
@@ -82,6 +87,7 @@ function PackingList({ passItems, deleteItem }) {
 function Item({ item, deleteItem }) {
   return (
     <li>
+      <input type="checkbox" value={item.packed} onChange={() => {}}/>
       <span style={item.packed ? {textDecoration:"line-through"}: {}}>
         {""}{item.quantity}{item.description}
       </span>
