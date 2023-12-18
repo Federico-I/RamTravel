@@ -26,7 +26,7 @@ export default function App() {
     <div className="app">
       <Logo />
       <Form addItems={handleAddItems}/>
-      <PackingList passItems={items} deleteItem={handleDeleteItems}/>
+      <PackingList passItems={items} deleteItem={handleDeleteItems} checkedItem={handleCheckedItem}/>
       <Stats itemsAmount={items}/>
     </div>
   )
@@ -72,22 +72,22 @@ function Form({ addItems }) {
   )
 };
 
-function PackingList({ passItems, deleteItem }) {
+function PackingList({ passItems, deleteItem, checkedItem }) {
   return(
     <div className="list">
       <ul>
         {passItems.map((item)=> (
-          <Item item={item} key={item.id} deleteItem={deleteItem}/>
+          <Item item={item} key={item.id} deleteItem={deleteItem} checkedItem={checkedItem}/>
         ))}
       </ul>
     </div>
   )
 };
 
-function Item({ item, deleteItem }) {
+function Item({ item, deleteItem, checkedItem }) {
   return (
     <li>
-      <input type="checkbox" value={item.packed} onChange={() => {}}/>
+      <input type="checkbox" value={item.packed} onChange={() => checkedItem(item.id)}/>
       <span style={item.packed ? {textDecoration:"line-through"}: {}}>
         {""}{item.quantity}{item.description}
       </span>
