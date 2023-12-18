@@ -97,9 +97,11 @@ function Item({ item, deleteItem, checkedItem }) {
 };
 
 function Stats({ itemsAmount }) {
+  const itemAmount = itemsAmount.lenght;
+
   return(
     <footer>
-      <em>You have {itemsAmount.lenght()} items on your list, and you already packed x (x%)</em>
+      <em>You have {itemAmount} items on your list, and you already packed x (x%)</em>
     </footer>
   )
 };
