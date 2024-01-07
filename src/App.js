@@ -73,6 +73,9 @@ function Form({ addItems }) {
 };
 
 function PackingList({ passItems, deleteItem, checkedItem }) {
+
+  const [sortItems, setSortItems] = useState("packed");
+
   return(
     <div className="list">
       <ul>
@@ -80,6 +83,14 @@ function PackingList({ passItems, deleteItem, checkedItem }) {
           <Item item={item} key={item.id} deleteItem={deleteItem} checkedItem={checkedItem}/>
         ))}
       </ul>
+
+      <div className="actions">
+        <select value={sortItems} onChange={(e) => setSortItems(e.target.value)}>
+          <option value="input">Sort by input order</option>
+          <option value="description">Sort by description</option>
+          <option value="packed">Sort by packed status</option>
+        </select>
+      </div>
     </div>
   )
 };
@@ -99,7 +110,7 @@ function Item({ item, deleteItem, checkedItem }) {
 function Stats({ itemsAmount }) {
   if (!itemsAmount.lenght) {
     return (
-      <p className="footer">
+      <p className="stats">
         <em>No items packed yet, the sooner you start the fastes you'll finish! arw you ready for the adventure?</em>
       </p>
     )
@@ -110,7 +121,7 @@ function Stats({ itemsAmount }) {
   const percentagepacked = Math.round(itemsPacked / itemsAmount * 100);
 
   return(
-    <footer>
+    <footer className="stats">
       <em>{percentagepacked === 100 ? "You got everything! Ready to go" : ` You have ${itemAmount} items on your list, and you already packed ${itemsPacked} (${percentagepacked} %) `} </em>
     </footer>
   )
