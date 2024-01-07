@@ -76,10 +76,17 @@ function PackingList({ passItems, deleteItem, checkedItem }) {
 
   const [sortItems, setSortItems] = useState("packed");
 
+  let sortedItems;
+
+  if (sortItems === "input") sortedItems = passItems;
+  if (sortItems === "description") sortedItems = passItems.slice().sort((a,b) => a.description.localCompare(b.description));
+  if (sortItems === "packed") sortedItems = passItems.slice().sort((a,b) => Number(a.packed) - Number(b.packed));
+
+
   return(
     <div className="list">
       <ul>
-        {passItems.map((item)=> (
+        {sortedItems.map((item)=> (
           <Item item={item} key={item.id} deleteItem={deleteItem} checkedItem={checkedItem}/>
         ))}
       </ul>
